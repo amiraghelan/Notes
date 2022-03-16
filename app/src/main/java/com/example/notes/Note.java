@@ -9,11 +9,15 @@ public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name="note_title")
+    private String noteTitle;
+
     @ColumnInfo(name="note_text")
     private String noteText;
 
-    public Note(String noteText) {
+    public Note(String noteText, String noteTitle) {
         this.noteText = noteText;
+        this.noteTitle = noteTitle;
     }
 
     public String getNoteText() {
@@ -24,11 +28,8 @@ public class Note {
         this.id = id;
     }
 
-    public String getTitle(){
-        if(noteText.length()>30){
-            return noteText.substring(0,30);
-        }
-        return noteText;
+    public String getNoteTitle(){
+        return noteTitle;
     }
 
     public int getId() {

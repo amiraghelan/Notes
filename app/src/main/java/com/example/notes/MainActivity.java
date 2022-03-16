@@ -43,13 +43,14 @@ public class MainActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         int requestCode = data.getIntExtra("REQ_CODE",-1);
                         if (requestCode != -1){
+                            String noteText = data.getStringExtra("NOTE");
+                            String noteTitle = data.getStringExtra("TITLE");
+                            Note note = new Note(noteText,noteTitle);
                             if(requestCode == ADD_REQ_CODE){
-                                Note note = new Note(data.getStringExtra("NOTE"));
                                 noteViewModel.insert(note);
                             }else if(requestCode == EDIT_REQ_CODE){
                                 int id = data.getIntExtra("ID",-1);
                                 if(id != -1){
-                                    Note note = new Note(data.getStringExtra("NOTE"));
                                     note.setId(id);
                                     noteViewModel.update(note);
                                 }
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, AddEditActivity.class);
                 intent.putExtra("REQ_CODE",EDIT_REQ_CODE);
                 intent.putExtra("NOTE",note.getNoteText());
+                intent.putExtra("TITLE",note.getNoteTitle());
                 intent.putExtra("ID",note.getId());
                 addLauncher.launch(intent);
             }

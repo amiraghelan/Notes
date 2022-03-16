@@ -16,12 +16,14 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class AddEditActivity extends AppCompatActivity {
 
     private EditText edtNote;
+    private EditText edtTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit);
 
         edtNote = findViewById(R.id.edt_note);
+        edtTitle = findViewById(R.id.edt_title);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.close);
         int requestCode = getIntent().getIntExtra("REQ_CODE",-1);
@@ -31,6 +33,7 @@ public class AddEditActivity extends AppCompatActivity {
         }else{
             setTitle("Edit Note");
             edtNote.setText(getIntent().getStringExtra("NOTE"));
+            edtTitle.setText(getIntent().getStringExtra("TITLE"));
         }
 
     }
@@ -56,13 +59,17 @@ public class AddEditActivity extends AppCompatActivity {
 
     private void saveNote() {
         String noteText = edtNote.getText().toString();
+        String noteTitle = edtTitle.getText().toString();
 
-        if(noteText.trim().isEmpty()){
-            Toast.makeText(this,"note is empty",Toast.LENGTH_SHORT).show();
+        if(noteText.trim().isEmpty() || noteTitle.trim().isEmpty()){
+            Toast.makeText(this,"please fill both note and title",Toast.LENGTH_SHORT).show();
             return;
         }
+
         Intent intent = new Intent();
         intent.putExtra("NOTE",noteText);
+        intent.putExtra("TITLE", noteTitle);
+
         int requestCode = getIntent().getIntExtra("REQ_CODE",-1);
 
         if(requestCode == MainActivity.EDIT_REQ_CODE){
