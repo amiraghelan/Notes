@@ -1,13 +1,17 @@
-package com.example.notes;
+package com.example.notes.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.notes.Model.Note;
+import com.example.notes.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = notes.get(position);
         holder.tvNote.setText(note.getNoteTitle());
+        if(note.getTagCode()==1){
+            holder.cboxFavorite.setChecked(true);
+        }
     }
 
     @Override
@@ -39,7 +46,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         return notes.size();
     }
 
-    void setNotes(List<Note> notes){
+    public void setNotes(List<Note> notes){
         this.notes = notes;
         notifyDataSetChanged();
     }
@@ -47,10 +54,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvNote;
         ImageView imgDelete;
+        CheckBox cboxFavorite;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNote = itemView.findViewById(R.id.tv_note_text);
             imgDelete = itemView.findViewById(R.id.img_delete);
+            cboxFavorite = itemView.findViewById(R.id.cbox_favorite);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -64,11 +73,22 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                     listeners.onDeleteClickListener(notes.get(getAdapterPosition()));
                 }
             });
+
+            cboxFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int tagCode = cboxFavorite.isChecked()?1:0;
+                    Note note = notes.get(getAdapterPosition());
+                    note.setTagCode(tagCode);
+                    listeners.onFavoriteClickListener(note);
+                }
+            });
         }
     }
 
     public interface ItemListeners{
         void onItemClickLinter(Note note);
         void onDeleteClickListener(Note note);
+        void onFavoriteClickListener(Note note);
     }
 }
