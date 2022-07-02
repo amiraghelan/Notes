@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_all_notes"
+        android:id="@+id/navigation_all_notes"
         android:icon="@drawable/ic_list_24"
         android:title="all notes" />
     <item
-        android:id="@+id/nav_add"
+        android:id="@+id/navigation_add_ed"
         android:icon="@drawable/add"
         android:title="add" />
     <item
-        android:id="@+id/nav_favorite_notes"
+        android:id="@+id/navigation_favorite_notes"
         android:icon="@drawable/ic_star_24"
         android:title="favorites" />
+
 </menu>

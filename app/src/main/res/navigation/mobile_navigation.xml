@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/navigation_add_ed">
+
+    <fragment
+        android:id="@+id/navigation_add_ed"
+        android:name="com.example.notes.fragments.AddEditFragment"
+        android:label="Add Edit"
+        tools:layout="@layout/fragment_add_edit" >
+        <action
+            android:id="@+id/action_navigation_add_ed_to_navigation_all_notes"
+            app:destination="@id/navigation_all_notes" />
+        <action
+            android:id="@+id/action_navigation_add_ed_to_navigation_favorite_notes"
+            app:destination="@id/navigation_favorite_notes" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_all_notes"
+        android:name="com.example.notes.fragments.ListNotesFragment"
+        android:label="All Notes"
+        tools:layout="@layout/fragment_notes" >
+        <action
+            android:id="@+id/action_navigation_all_notes_to_navigation_add_ed"
+            app:destination="@id/navigation_add_ed" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_favorite_notes"
+        android:name="com.example.notes.fragments.ListNotesFragment"
+        android:label="Favorite Notes"
+        tools:layout="@layout/fragment_notes">
+        <action
+            android:id="@+id/action_navigation_favorite_notes_to_navigation_add_ed"
+            app:destination="@id/navigation_add_ed" />
+    </fragment>
+
+
+</navigation>

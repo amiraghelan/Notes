@@ -58,10 +58,10 @@ public class ListNotesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_notes,container,false);
-
-        notesRecyclerView = v.findViewById(R.id.rcl_notes);
-        notesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        notesRecyclerView.setAdapter(adapter);
+//
+//        notesRecyclerView = v.findViewById(R.id.rcl_notes);
+//        notesRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        notesRecyclerView.setAdapter(adapter);
         return v;
     }
 

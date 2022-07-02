@@ -37,7 +37,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
         Note note = notes.get(position);
         holder.tvNote.setText(note.getNoteTitle());
         if(note.getTagCode()==1){
-            holder.cboxFavorite.setChecked(true);
+            holder.cBoxFavorite.setChecked(true);
         }
     }
 
@@ -54,12 +54,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvNote;
         ImageView imgDelete;
-        CheckBox cboxFavorite;
+        CheckBox cBoxFavorite;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNote = itemView.findViewById(R.id.tv_note_text);
             imgDelete = itemView.findViewById(R.id.img_delete);
-            cboxFavorite = itemView.findViewById(R.id.cbox_favorite);
+            cBoxFavorite = itemView.findViewById(R.id.cbox_favorite);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -74,10 +74,10 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                 }
             });
 
-            cboxFavorite.setOnClickListener(new View.OnClickListener() {
+            cBoxFavorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int tagCode = cboxFavorite.isChecked()?1:0;
+                    int tagCode = cBoxFavorite.isChecked()?1:0;
                     Note note = notes.get(getAdapterPosition());
                     note.setTagCode(tagCode);
                     listeners.onFavoriteClickListener(note);

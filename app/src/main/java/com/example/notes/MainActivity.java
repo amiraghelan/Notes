@@ -5,6 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavDestinationBuilder;
+import androidx.navigation.NavGraph;
+import androidx.navigation.Navigation;
+import androidx.navigation.NavigatorProvider;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -22,9 +30,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ListNotesFragment.ListNotesFragmentListener, AddEditFragment.AddEditFragmentListener {
 
-    public static int ADD_REQ_CODE = 1;
-    public static int EDIT_REQ_CODE = 2;
-
     private NoteViewModel noteViewModel;
 
     private ListNotesFragment allNotesFragment;
@@ -32,37 +37,6 @@ public class MainActivity extends AppCompatActivity implements ListNotesFragment
     private AddEditFragment addEditFragment;
 
     private BottomNavigationView bottomNav;
-
-//    private NoteAdapter adapter;
-//    private RecyclerView recyclerView;
-//    private FloatingActionButton fabNewNote;
-
-//    ActivityResultLauncher<Intent> addLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == RESULT_OK) {
-//                        Intent data = result.getData();
-//                        int requestCode = data.getIntExtra("REQ_CODE",-1);
-//                        if (requestCode != -1){
-//                            String noteText = data.getStringExtra("NOTE");
-//                            String noteTitle = data.getStringExtra("TITLE");
-//                            Note note = new Note(noteText,noteTitle);
-//                            if(requestCode == ADD_REQ_CODE){
-//                                noteViewModel.insert(note);
-//                            }else if(requestCode == EDIT_REQ_CODE){
-//                                int id = data.getIntExtra("ID",-1);
-//                                if(id != -1){
-//                                    note.setId(id);
-//                                    noteViewModel.update(note);
-//                                }
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,29 +50,12 @@ public class MainActivity extends AppCompatActivity implements ListNotesFragment
         favoriteNotesFragment = ListNotesFragment.getInstance(this);
         addEditFragment = AddEditFragment.getInstance(this);
 
-        bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav = findViewById(R.id.bottom_navigation);
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
+        NavController navController = navHostFragment.getNavController();
+        NavigationUI.setupWithNavController(bottomNav,navController);
 
-        NavigationBarView.OnItemSelectedListener navListener = new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int id = item.getItemId();
-                switch (id) {
-                    case R.id.nav_all_notes:
-                        changeFragment(allNotesFragment);
-                        break;
-                    case R.id.nav_favorite_notes:
-                        changeFragment(favoriteNotesFragment);
-                        break;
-                    case R.id.nav_add:
-                        changeFragment(addEditFragment);
-                }
-                return true;
-            }
-        };
 
-        bottomNav.setOnItemSelectedListener(navListener);
-
-        changeFragment(allNotesFragment);
 
 
         noteViewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
@@ -119,9 +76,7 @@ public class MainActivity extends AppCompatActivity implements ListNotesFragment
 
     }
 
-    private void changeFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, fragment).commit();
-    }
+
 
 
     @Override
@@ -146,9 +101,6 @@ public class MainActivity extends AppCompatActivity implements ListNotesFragment
     @Override
     public void onItemClick(Note note) {
         addEditFragment.fillData(note);
-        bottomNav.setSelectedItemId(R.id.nav_add);
-        changeFragment(addEditFragment);
-
     }
 
     @Override

@@ -12,11 +12,15 @@
         <entry key="app/src/main/res/drawable/save.xml" value="0.1495" />
         <entry key="app/src/main/res/layout/activity_add_edit.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_edit.xml" value="0.15185185185185185" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.15185185185185185" />
         <entry key="app/src/main/res/layout/fragment_notes.xml" value="0.15185185185185185" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/note_item.xml" value="0.25" />
         <entry key="app/src/main/res/menu/add_note_menu.xml" value="0.18" />
-        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.15185185185185185" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.33" />
         <entry key="app/src/main/res/menu/main_activity_menu.xml" value="0.1" />
       </map>
     </option>
